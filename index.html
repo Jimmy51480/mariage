@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Camille & Antoine — 12 juin 2027</title>
+<meta name="description" content="Le mariage de Camille et Antoine — programme, informations pratiques, RSVP et photos souvenirs.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+  /* ============ TOKENS ============ */
+  :root{
+    --ink:#1E3527;
+    --ink-soft:#3C5747;
+    --paper:#F5EFE3;
+    --paper-soft:#FBF8F2;
+    --accent:#A8455C;
+    --gold:#B8862F;
+    --sage:#7C9483;
+    --line: rgba(30,53,39,0.16);
+    --line-strong: rgba(30,53,39,0.32);
+    --font-display:'Fraunces', serif;
+    --font-body:'Work Sans', sans-serif;
+    --max-w: 920px;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:var(--font-body);
+    font-size:16px;
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3{
+    font-family:var(--font-display);
+    font-weight:500;
+    margin:0;
+    color:var(--ink);
+  }
+  p{margin:0;}
+  a{color:inherit;}
+  img{max-width:100%;display:block;}
+  button{font-family:var(--font-body);cursor:pointer;}
+  :focus-visible{outline:2px solid var(--accent);outline-offset:3px;}
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *{animation-duration:0.001ms !important; transition-duration:0.001ms !important;}
+  }
+
+  .wrap{max-width:var(--max-w); margin:0 auto; padding:0 24px;}
+
+  /* ============ NAV ============ */
+  .nav{
+    position:sticky; top:0; z-index:40;
+    background:rgba(245,239,227,0.92);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav-inner{
+    max-width:var(--max-w); margin:0 auto; padding:14px 24px;
+    display:flex; align-items:center; justify-content:space-between;
+    gap:16px;
+  }
+  .monogram{
+    font-family:var(--font-display); font-size:20px; font-weight:500;
+    letter-spacing:0.02em; white-space:nowrap;
+  }
+  .nav-links{
+    display:flex; gap:20px; overflow-x:auto; scrollbar-width:none;
+  }
+  .nav-links::-webkit-scrollbar{display:none;}
+  .nav-links a{
+    font-size:14px; text-decoration:none; color:var(--ink-soft);
+    white-space:nowrap; padding:4px 2px; border-bottom:1px solid transparent;
+    transition:border-color .15s ease, color .15s ease;
+  }
+  .nav-links a:hover{color:var(--ink); border-color:var(--sage);}
+
+  /* ============ HERO ============ */
+  .hero{
+    padding:64px 0 56px;
+    border-bottom:1px solid var(--line);
+  }
+  .hero-names{
+    font-size:clamp(48px, 11vw, 96px);
+    line-height:0.98;
+    letter-spacing:-0.01em;
+  }
+  .hero-sub{
+    margin-top:18px;
+    font-size:17px;
+    color:var(--ink-soft);
+  }
+  .hero-sub a{text-decoration:underline; text-decoration-color:var(--line-strong); text-underline-offset:3px;}
+  .countdown{
+    margin-top:36px;
+    display:flex; gap:28px; flex-wrap:wrap;
+  }
+  .countdown-item{min-width:64px;}
+  .countdown-num{
+    font-family:var(--font-display);
+    font-size:38px; font-variant-numeric: tabular-nums;
+    line-height:1;
+  }
+  .countdown-label{
+    font-size:12px; color:var(--ink-soft); margin-top:6px;
+  }
+
+  /* ============ SECTION SHELL ============ */
+  section.block{
+    padding:64px 0;
+    border-bottom:1px solid var(--line);
+  }
+  .block-head{
+    display:flex; align-items:baseline; justify-content:space-between;
+    gap:16px; margin-bottom:40px;
+  }
+  .block-title{font-size:clamp(28px,5vw,38px);}
+  .block-note{font-size:14px; color:var(--ink-soft); max-width:280px; text-align:right;}
+  @media (max-width:640px){
+    .block-head{flex-direction:column; align-items:flex-start;}
+    .block-note{text-align:left;}
+  }
+
+  /* ============ PROGRAMME ============ */
+  .timeline{position:relative; padding-left:0;}
+  .timeline-line{
+    position:absolute; left:70px; top:6px; bottom:6px; width:1px; background:var(--line-strong);
+  }
+  .t-item{
+    display:grid; grid-template-columns:70px 24px 1fr; column-gap:0;
+    padding:20px 0;
+  }
+  .t-item:first-child{padding-top:0;}
+  .t-item:last-child{padding-bottom:0;}
+  .t-time{
+    font-family:var(--font-display); font-size:18px; padding-top:2px; color:var(--ink);
+  }
+  .t-dot-col{display:flex; justify-content:center;}
+  .t-dot{
+    width:9px; height:9px; border-radius:50%; background:var(--accent); margin-top:8px;
+  }
+  .t-body{padding-left:20px;}
+  .t-title{font-size:19px; font-family:var(--font-display); font-weight:500;}
+  .t-place{font-size:14px; color:var(--ink-soft); margin-top:3px;}
+
+  /* ============ INFOS PRATIQUES ============ */
+  .infos-grid{
+    display:grid; grid-template-columns:1.1fr 1fr; gap:48px;
+  }
+  @media (max-width:720px){ .infos-grid{grid-template-columns:1fr;} }
+  .info-card{margin-bottom:28px;}
+  .info-card h3{font-size:15px; font-weight:600; font-family:var(--font-body); color:var(--ink-soft); margin-bottom:8px;}
+  .info-card .big{font-family:var(--font-display); font-size:22px; margin-bottom:4px;}
+  .info-card .small{font-size:14px; color:var(--ink-soft);}
+  .maps-link{
+    display:inline-block; margin-top:12px; font-size:14px;
+    text-decoration:underline; text-decoration-color:var(--line-strong); text-underline-offset:3px;
+  }
+  .hotel-list{list-style:none; margin:0; padding:0;}
+  .hotel-list li{
+    padding:14px 0; border-top:1px solid var(--line);
+  }
+  .hotel-list li:first-child{border-top:none; padding-top:0;}
+  .hotel-name{font-family:var(--font-display); font-size:17px;}
+  .hotel-detail{font-size:14px; color:var(--ink-soft); margin-top:2px;}
+
+  /* ============ RSVP ============ */
+  .rsvp-card{
+    max-width:520px; margin:0 auto;
+    background:var(--paper-soft); border:1px solid var(--line);
+    border-radius:2px; padding:40px 32px;
+  }
+  .field{margin-bottom:20px;}
+  .field label{display:block; font-size:13px; color:var(--ink-soft); margin-bottom:6px;}
+  .field input[type=text], .field input[type=number], .field input[type=email], .field select, .field textarea{
+    width:100%; padding:11px 12px; font-family:var(--font-body); font-size:15px;
+    background:var(--paper); border:1px solid var(--line-strong); border-radius:2px; color:var(--ink);
+  }
+  .field textarea{resize:vertical; min-height:80px;}
+  .field-row{display:grid; grid-template-columns:1fr 1fr; gap:14px;}
+  @media (max-width:480px){.field-row{grid-template-columns:1fr;}}
+  .radio-group{display:flex; gap:10px; flex-wrap:wrap;}
+  .radio-pill{
+    border:1px solid var(--line-strong); border-radius:20px; padding:9px 16px; font-size:14px;
+    cursor:pointer; user-select:none; transition:background .15s ease, color .15s ease;
+  }
+  .radio-pill input{display:none;}
+  .radio-pill.checked{background:var(--ink); color:var(--paper-soft); border-color:var(--ink);}
+  .btn-primary{
+    width:100%; padding:13px 20px; background:var(--ink); color:var(--paper-soft);
+    border:none; border-radius:2px; font-size:15px; font-weight:500; margin-top:8px;
+    transition:background .15s ease;
+  }
+  .btn-primary:hover{background:var(--ink-soft);}
+  .btn-primary:disabled{opacity:0.5; cursor:not-allowed;}
+  .form-msg{font-size:14px; margin-top:14px; display:none;}
+  .form-msg.show{display:block;}
+  .form-msg.ok{color:var(--sage);}
+  .form-msg.err{color:var(--accent);}
+
+  /* ============ GALERIE ============ */
+  .gal-top{
+    display:grid; grid-template-columns:1fr auto; gap:32px; align-items:start; margin-bottom:36px;
+  }
+  @media (max-width:640px){ .gal-top{grid-template-columns:1fr;} }
+  .gal-copy p{font-size:15px; color:var(--ink-soft); max-width:46ch;}
+  .btn-secondary{
+    display:inline-flex; align-items:center; gap:8px;
+    margin-top:16px; padding:11px 20px; background:transparent; color:var(--ink);
+    border:1px solid var(--ink); border-radius:2px; font-size:14px; font-weight:500;
+  }
+  .btn-secondary:hover{background:var(--ink); color:var(--paper-soft);}
+  .qr-card{
+    background:var(--paper-soft); border:1px solid var(--line); padding:18px;
+    text-align:center; width:180px;
+  }
+  .qr-card #qrcode{margin:0 auto;}
+  .qr-caption{font-size:12px; color:var(--ink-soft); margin-top:10px;}
+
+  .gallery-grid{
+    columns:2; column-gap:10px;
+  }
+  @media (min-width:600px){ .gallery-grid{columns:3;} }
+  @media (min-width:900px){ .gallery-grid{columns:4;} }
+  .gallery-grid figure{
+    margin:0 0 10px; break-inside:avoid; position:relative;
+  }
+  .gallery-grid img{
+    width:100%; border-radius:2px; display:block; background:var(--line);
+  }
+  .gallery-empty{
+    font-size:14px; color:var(--ink-soft); padding:30px 0; text-align:center;
+    border:1px dashed var(--line-strong);
+  }
+  .upload-status{font-size:13px; color:var(--ink-soft); margin-top:10px; min-height:18px;}
+
+  .lightbox{
+    position:fixed; inset:0; background:rgba(30,53,39,0.92); z-index:100;
+    display:none; align-items:center; justify-content:center; padding:24px;
+  }
+  .lightbox.open{display:flex;}
+  .lightbox img{max-height:88vh; max-width:100%; border-radius:2px;}
+  .lightbox-close{
+    position:absolute; top:20px; right:24px; color:var(--paper-soft); background:none; border:none;
+    font-size:28px; line-height:1;
+  }
+
+  /* ============ FOOTER ============ */
+  footer{padding:40px 0 60px; text-align:center;}
+  footer p{font-size:13px; color:var(--ink-soft);}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <span class="monogram">C&nbsp;&amp;&nbsp;A</span>
+    <div class="nav-links">
+      <a href="#programme">Programme</a>
+      <a href="#infos">Infos pratiques</a>
+      <a href="#rsvp">RSVP</a>
+      <a href="#galerie">Photos</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero wrap">
+  <h1 class="hero-names">Camille<br>&amp; Antoine</h1>
+  <p class="hero-sub" id="heroDate">Samedi 12 juin 2027 — Domaine des Tilleuls, Langon</p>
+  <div class="countdown" id="countdown" aria-live="polite">
+    <div class="countdown-item"><div class="countdown-num" id="cd-days">–</div><div class="countdown-label">jours</div></div>
+    <div class="countdown-item"><div class="countdown-num" id="cd-hours">–</div><div class="countdown-label">heures</div></div>
+    <div class="countdown-item"><div class="countdown-num" id="cd-min">–</div><div class="countdown-label">minutes</div></div>
+    <div class="countdown-item"><div class="countdown-num" id="cd-sec">–</div><div class="countdown-label">secondes</div></div>
+  </div>
+</header>
+
+<section class="block" id="programme">
+  <div class="wrap">
+    <div class="block-head">
+      <h2 class="block-title">Le programme</h2>
+      <p class="block-note">Une même journée, un seul lieu — pas besoin de reprendre la voiture.</p>
+    </div>
+    <div class="timeline" id="timelineList"></div>
+  </div>
+</section>
+
+<section class="block" id="infos">
+  <div class="wrap">
+    <div class="block-head">
+      <h2 class="block-title">Infos pratiques</h2>
+    </div>
+    <div class="infos-grid">
+      <div>
+        <div class="info-card">
+          <h3>Lieu</h3>
+          <p class="big">Domaine des Tilleuls</p>
+          <p class="small">12 chemin des Vignes, 33210 Langon</p>
+          <a class="maps-link" id="mapsLink" href="#" target="_blank" rel="noopener">Ouvrir dans Google Maps →</a>
+        </div>
+        <div class="info-card">
+          <h3>Dress code</h3>
+          <p class="small">Tenue habillée, couleurs vives bienvenues. La cérémonie a lieu en extérieur sur pelouse — prévoyez des chaussures adaptées.</p>
+        </div>
+        <div class="info-card">
+          <h3>Un contact sur place</h3>
+          <p class="small">En cas de besoin le jour J : Camille — 06 12 34 56 78</p>
+        </div>
+      </div>
+      <div>
+        <h3 style="font-size:15px;font-weight:600;color:var(--ink-soft);margin-bottom:12px;">Où dormir</h3>
+        <ul class="hotel-list" id="hotelList"></ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="rsvp">
+  <div class="wrap">
+    <div class="block-head">
+      <h2 class="block-title">RSVP</h2>
+      <p class="block-note">Merci de répondre avant le 1er mai 2027.</p>
+    </div>
+    <form class="rsvp-card" id="rsvpForm">
+      <div class="field">
+        <label for="rsvpName">Prénom et nom</label>
+        <input type="text" id="rsvpName" required>
+      </div>
+      <div class="field">
+        <label>Serez-vous présent·e ?</label>
+        <div class="radio-group" id="presenceGroup">
+          <label class="radio-pill"><input type="radio" name="presence" value="oui" required>Je serai là</label>
+          <label class="radio-pill"><input type="radio" name="presence" value="non">Je ne pourrai pas venir</label>
+        </div>
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label for="rsvpNb">Nombre de personnes</label>
+          <input type="number" id="rsvpNb" min="1" max="10" value="1">
+        </div>
+        <div class="field">
+          <label for="rsvpRegime">Allergies / régime</label>
+          <input type="text" id="rsvpRegime" placeholder="Aucune">
+        </div>
+      </div>
+      <div class="field">
+        <label for="rsvpMsg">Un petit mot pour les mariés (facultatif)</label>
+        <textarea id="rsvpMsg"></textarea>
+      </div>
+      <button type="submit" class="btn-primary" id="rsvpSubmit">Envoyer ma réponse</button>
+      <p class="form-msg" id="rsvpMsgOut"></p>
+    </form>
+  </div>
+</section>
+
+<section class="block" id="galerie" style="border-bottom:none;">
+  <div class="wrap">
+    <div class="block-head">
+      <h2 class="block-title">Vos photos</h2>
+    </div>
+    <div class="gal-top">
+      <div class="gal-copy">
+        <p>Vous avez pris des photos pendant la journée ? Ajoutez-les ici, elles apparaîtront dans la galerie en direct — visible par tout le monde, mariés compris.</p>
+        <button class="btn-secondary" id="uploadBtn" type="button">Ajouter mes photos</button>
+        <input type="file" id="fileInput" accept="image/*" multiple hidden>
+        <p class="upload-status" id="uploadStatus"></p>
+      </div>
+      <div class="qr-card">
+        <div id="qrcode"></div>
+        <p class="qr-caption">Scannez pour ouvrir la galerie sur votre téléphone</p>
+      </div>
+    </div>
+    <div class="gallery-grid" id="galleryGrid"></div>
+    <p class="gallery-empty" id="galleryEmpty">Les premières photos apparaîtront ici dès qu'elles seront envoyées.</p>
+  </div>
+</section>
+
+<footer>
+  <p>Camille &amp; Antoine · 12 juin 2027</p>
+</footer>
+
+<div class="lightbox" id="lightbox">
+  <button class="lightbox-close" id="lightboxClose" aria-label="Fermer">&times;</button>
+  <img id="lightboxImg" src="" alt="Photo agrandie">
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script type="module" src="./site.js"></script>
+</body>
+</html>
