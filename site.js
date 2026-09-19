@@ -1,67 +1,141 @@
 /* ============================================================
    1) CONFIG DU MARIAGE — à personnaliser
+   Tout ce qui est vide ("") ou en tableau vide ([]) affichera
+   un texte "à venir" à la place sur le site, sans rien casser.
    ============================================================ */
 const CONFIG = {
-  dateISO: "2027-06-12T16:00:00", // format AAAA-MM-JJThh:mm:ss, utilisé pour le compte à rebours
-  lieuAdresse: "12 chemin des Vignes, 33210 Langon",
+  prenom1: "Anaïs",
+  prenom2: "Jimmy",
+
+  // Heure du jour J pas encore connue : le compte à rebours compte
+  // jusqu'à minuit ce jour-là. Mettez la vraie heure ici dès que vous
+  // l'avez (format 24h), ex: "2027-10-09T14:00:00".
+  dateISO: "2027-10-09T00:00:00",
+  regionAffichee: "Sacy & Pierry, Marne",
 
   programme: [
-    { heure: "16h00", titre: "Cérémonie", lieu: "Domaine des Tilleuls — jardin" },
-    { heure: "17h30", titre: "Cocktail", lieu: "Terrasse" },
-    { heure: "20h00", titre: "Dîner", lieu: "Grange" },
-    { heure: "22h30", titre: "Soirée dansante", lieu: "Grange" },
+    { heure: "Horaire à venir", titre: "Mairie", lieu: "Sacy (Marne)", adresse: "Mairie de Sacy, Marne", icon: "scroll" },
+    { heure: "Horaire à venir", titre: "Cérémonie religieuse", lieu: "Église de Sacy (Marne)", adresse: "Église de Sacy, Marne", icon: "chapel" },
+    { heure: "Horaire à venir", titre: "Vin d'honneur", lieu: "Lieu à confirmer", adresse: "", icon: "glass" },
+    { heure: "Horaire à venir", titre: "Repas", lieu: "Domaine Miltat, Pierry", adresse: "Domaine Miltat, Pierry, Marne", icon: "fork" },
   ],
 
+  adressePrincipale: { nom: "Domaine Miltat", adresse: "Pierry, Marne" },
+  dressCode: "Tenue habillée — à préciser si vous avez un thème particulier.",
   hotels: [
-    { nom: "Château de Malle", detail: "10 min en voiture — chambres à partir de 120€" },
-    { nom: "Hôtel ibis Langon", detail: "8 min en voiture — option économique" },
-    { nom: "Camping des Vignes", detail: "5 min à pied — emplacements et mobil-homes" },
+    { nom: "La Crapounette", detail: "Chambres d'hôtes à Pierry, accueil chaleureux — coup de cœur des voyageurs" },
+    { nom: "Hôtel Margaux", detail: "Hôtel à Épernay (10 min en voiture), pour une option plus classique" },
   ],
+  contactNom: "",
+  contactTel: "",
+  rsvpDeadline: "", // ex: "1er août 2027"
+  heroPhoto: "", // ex: "photo-anais-jimmy.jpg" — mettre le fichier à côté d'index.html
+};
+
+/* Icônes ligne pour le programme */
+const ICONS = {
+  scroll: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4h9a3 3 0 0 1 3 3v10a3 3 0 0 0 3 3H9a3 3 0 0 1-3-3V4Z"/><path d="M6 4a3 3 0 0 0-3 3v1h3"/><path d="M9 9h6M9 12.5h6"/></svg>`,
+  chapel: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v3M10.3 5.7h3.4"/><path d="M5 21V11l7-5 7 5v10"/><path d="M9.5 21v-6h5v6"/></svg>`,
+  glass: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 4h10c0 4.4-3.2 7.5-5 7.5S7 8.4 7 4Z"/><path d="M12 11.5V19M9 21h6"/></svg>`,
+  fork: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3v6a1.6 1.6 0 0 0 1.6 1.6H9V21M6 3v4.5A1.5 1.5 0 0 0 7.5 9M10 3v4.5A1.5 1.5 0 0 1 8.5 9"/><path d="M16.5 3c-1.4 0-2.4 1.7-2.4 4.6 0 1.9.8 3 1.7 3.5V21"/></svg>`,
+  default: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="12" r="4"/></svg>`,
 };
 
 /* ============================================================
-   2) CONFIG SUPABASE — à remplacer par votre propre projet
-   Project Settings → API → Project URL / anon public key.
-   La clé "anon" est publique par design (protégée par les policies RLS),
-   elle peut être exposée côté client sans risque.
-   Voir SETUP.md pour la marche à suivre complète.
+   2) CONFIG SUPABASE
    ============================================================ */
-const SUPABASE_URL = "https://ukbbykzddovzkjwdizpj.supabase.co/rest/v1/";
-const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVrYmJ5a3pkZG92emtqd2RpenBqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODkyMjI4NzYsImV4cCI6MjEwNDc5ODg3Nn0.mjCWGFYxEqiRHpYmXDRDPd4RTuH1RSsH3Nf0XGg1NTc";
+const SUPABASE_URL = "VOTRE_PROJET.supabase.co";
+const SUPABASE_ANON_KEY = "VOTRE_ANON_KEY";
 const PHOTOS_BUCKET = "photos";
 
 /* ============================================================
-   3) RENDU DU CONTENU STATIQUE (programme, hôtels, adresse)
+   3) RENDU DU CONTENU (hero, programme, infos)
    ============================================================ */
+function mapsUrl(query) {
+  return "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(query);
+}
+
+function renderHero() {
+  document.getElementById("heroNames").innerHTML =
+    `${CONFIG.prenom1}<span class="amp">&amp;</span>${CONFIG.prenom2}`;
+  document.getElementById("footerNames").textContent =
+    `${CONFIG.prenom1} & ${CONFIG.prenom2}`;
+
+  const dateStr = new Intl.DateTimeFormat("fr-FR", { weekday: "long", day: "numeric", month: "long", year: "numeric" })
+    .format(new Date(CONFIG.dateISO))
+    .replace(/^./, (c) => c.toUpperCase());
+  document.getElementById("heroDate").textContent = `${dateStr} — ${CONFIG.regionAffichee}`;
+
+  if (CONFIG.heroPhoto) {
+    const hero = document.getElementById("hero");
+    hero.classList.add("has-photo");
+    hero.style.backgroundImage = `url('${CONFIG.heroPhoto}')`;
+  }
+}
+
 function renderProgramme() {
   const el = document.getElementById("timelineList");
   el.innerHTML = CONFIG.programme
     .map(
       (item) => `
       <div class="t-item">
-        <div class="t-time">${item.heure}</div>
-        <div class="t-dot-col"><div class="t-dot"></div></div>
-        <div class="t-body">
+        <div class="t-icon">${ICONS[item.icon] || ICONS.default}</div>
+        <div>
+          <div class="t-time">${item.heure}</div>
           <div class="t-title">${item.titre}</div>
           <div class="t-place">${item.lieu}</div>
+          ${item.adresse ? `<a class="t-map" href="${mapsUrl(item.adresse)}" target="_blank" rel="noopener">Itinéraire →</a>` : ""}
         </div>
       </div>`
     )
     .join("");
 }
 
-function renderHotels() {
-  const el = document.getElementById("hotelList");
-  el.innerHTML = CONFIG.hotels
-    .map(
-      (h) => `<li><div class="hotel-name">${h.nom}</div><div class="hotel-detail">${h.detail}</div></li>`
-    )
-    .join("");
+function renderInfos() {
+  const grid = document.getElementById("infosGrid");
+  const cards = [];
+
+  if (CONFIG.adressePrincipale) {
+    cards.push(`
+      <div class="info-card">
+        <h3>Lieu du repas</h3>
+        <p class="big">${CONFIG.adressePrincipale.nom}</p>
+        <p class="small">${CONFIG.adressePrincipale.adresse}</p>
+        <a class="maps-link" href="${mapsUrl(CONFIG.adressePrincipale.nom + ", " + CONFIG.adressePrincipale.adresse)}" target="_blank" rel="noopener">Ouvrir dans Google Maps →</a>
+      </div>`);
+  }
+
+  cards.push(`
+    <div class="info-card">
+      <h3>Dress code</h3>
+      <p class="small">${CONFIG.dressCode || "À préciser prochainement."}</p>
+    </div>`);
+
+  cards.push(`
+    <div class="info-card">
+      <h3>Où dormir</h3>
+      <ul class="hotel-list">
+        ${CONFIG.hotels.length
+          ? CONFIG.hotels.map((h) => `<li><div class="hotel-name">${h.nom}</div><div class="hotel-detail">${h.detail}</div></li>`).join("")
+          : `<li class="hotel-empty">Suggestions à venir.</li>`}
+      </ul>
+    </div>`);
+
+  if (CONFIG.contactNom || CONFIG.contactTel) {
+    cards.push(`
+      <div class="info-card">
+        <h3>Un contact sur place</h3>
+        <p class="small">${[CONFIG.contactNom, CONFIG.contactTel].filter(Boolean).join(" — ")}</p>
+      </div>`);
+  }
+
+  grid.innerHTML = cards.join("");
 }
 
-function renderMapsLink() {
-  const el = document.getElementById("mapsLink");
-  el.href = "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(CONFIG.lieuAdresse);
+function renderRsvpSubtitle() {
+  document.getElementById("rsvpSubtitle").textContent = CONFIG.rsvpDeadline
+    ? `Merci de répondre avant le ${CONFIG.rsvpDeadline}.`
+    : "Merci de nous dire si vous serez des nôtres.";
 }
 
 /* ============================================================
@@ -78,37 +152,27 @@ function startCountdown() {
   function tick() {
     const diff = target - Date.now();
     if (diff <= 0) {
-      els.days.textContent = "0";
-      els.hours.textContent = "0";
-      els.min.textContent = "0";
-      els.sec.textContent = "0";
+      els.days.textContent = "0"; els.hours.textContent = "0";
+      els.min.textContent = "0"; els.sec.textContent = "0";
       return;
     }
-    const d = Math.floor(diff / 86400000);
-    const h = Math.floor((diff % 86400000) / 3600000);
-    const m = Math.floor((diff % 3600000) / 60000);
-    const s = Math.floor((diff % 60000) / 1000);
-    els.days.textContent = d;
-    els.hours.textContent = String(h).padStart(2, "0");
-    els.min.textContent = String(m).padStart(2, "0");
-    els.sec.textContent = String(s).padStart(2, "0");
+    els.days.textContent = Math.floor(diff / 86400000);
+    els.hours.textContent = String(Math.floor((diff % 86400000) / 3600000)).padStart(2, "0");
+    els.min.textContent = String(Math.floor((diff % 3600000) / 60000)).padStart(2, "0");
+    els.sec.textContent = String(Math.floor((diff % 60000) / 1000)).padStart(2, "0");
   }
   tick();
   setInterval(tick, 1000);
 }
 
 /* ============================================================
-   5) QR CODE — pointe automatiquement vers la page en cours
+   5) QR CODE
    ============================================================ */
 function renderQRCode() {
   const url = window.location.href.split("#")[0] + "#galerie";
   // eslint-disable-next-line no-undef
   new QRCode(document.getElementById("qrcode"), {
-    text: url,
-    width: 140,
-    height: 140,
-    colorDark: "#1E3527",
-    colorLight: "#FBF8F2",
+    text: url, width: 130, height: 130, colorDark: "#3A2233", colorLight: "#FFFDF9",
   });
 }
 
@@ -121,23 +185,17 @@ async function initSupabase() {
     SUPABASE_ANON_KEY && !SUPABASE_ANON_KEY.startsWith("VOTRE_");
 
   if (!isConfigured) {
-    console.warn(
-      "Supabase n'est pas configuré : le RSVP et la galerie ne fonctionneront pas tant que SUPABASE_URL / SUPABASE_ANON_KEY (dans site.js) n'ont pas été renseignés. Voir SETUP.md."
-    );
     document.getElementById("uploadStatus").textContent = "Galerie non activée pour l'instant.";
     return null;
   }
 
   const { createClient } = await import("https://esm.sh/@supabase/supabase-js@2");
   const supabase = createClient(`https://${SUPABASE_URL.replace(/^https?:\/\//, "")}`, SUPABASE_ANON_KEY);
-
   const { error } = await supabase.auth.signInAnonymously();
   if (error) console.error("Connexion anonyme échouée:", error.message);
-
   return supabase;
 }
 
-/* ---- RSVP ---- */
 function wireRSVP(supabase) {
   const form = document.getElementById("rsvpForm");
   const msgOut = document.getElementById("rsvpMsgOut");
@@ -153,13 +211,12 @@ function wireRSVP(supabase) {
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
     if (!supabase) {
-      msgOut.textContent = "La galerie/RSVP n'est pas encore configurée par les mariés — réessayez plus tard.";
+      msgOut.textContent = "La galerie/RSVP n'est pas encore configurée — réessayez plus tard.";
       msgOut.className = "form-msg show err";
       return;
     }
     const presence = form.querySelector("input[name=presence]:checked");
     if (!presence) return;
-
     submitBtn.disabled = true;
     submitBtn.textContent = "Envoi…";
     try {
@@ -186,7 +243,6 @@ function wireRSVP(supabase) {
   });
 }
 
-/* ---- Galerie photos ---- */
 function wireGallery(supabase) {
   const uploadBtn = document.getElementById("uploadBtn");
   const fileInput = document.getElementById("fileInput");
@@ -199,24 +255,15 @@ function wireGallery(supabase) {
   function addPhotoToGrid(url, prepend) {
     const fig = document.createElement("figure");
     const img = document.createElement("img");
-    img.src = url;
-    img.loading = "lazy";
-    img.alt = "Photo envoyée par un invité";
-    img.addEventListener("click", () => {
-      lightboxImg.src = url;
-      lightbox.classList.add("open");
-    });
+    img.src = url; img.loading = "lazy"; img.alt = "Photo envoyée par un invité";
+    img.addEventListener("click", () => { lightboxImg.src = url; lightbox.classList.add("open"); });
     fig.appendChild(img);
-    if (prepend) grid.prepend(fig);
-    else grid.appendChild(fig);
+    if (prepend) grid.prepend(fig); else grid.appendChild(fig);
     empty.style.display = "none";
   }
 
   uploadBtn.addEventListener("click", () => {
-    if (!supabase) {
-      status.textContent = "Galerie non activée pour l'instant.";
-      return;
-    }
+    if (!supabase) { status.textContent = "Galerie non activée pour l'instant."; return; }
     fileInput.click();
   });
 
@@ -228,18 +275,11 @@ function wireGallery(supabase) {
     for (const file of files) {
       try {
         const path = `${Date.now()}_${Math.random().toString(36).slice(2)}_${file.name}`;
-        const { error: upErr } = await supabase.storage
-          .from(PHOTOS_BUCKET)
-          .upload(path, file, { contentType: file.type, upsert: false });
+        const { error: upErr } = await supabase.storage.from(PHOTOS_BUCKET).upload(path, file, { contentType: file.type, upsert: false });
         if (upErr) throw upErr;
-
         const { data: pub } = supabase.storage.from(PHOTOS_BUCKET).getPublicUrl(path);
-        const { error: dbErr } = await supabase.from("photos").insert({
-          url: pub.publicUrl,
-          storage_path: path,
-        });
+        const { error: dbErr } = await supabase.from("photos").insert({ url: pub.publicUrl, storage_path: path });
         if (dbErr) throw dbErr;
-
         done++;
         status.textContent = `${done}/${files.length} photo(s) envoyée(s)…`;
       } catch (err) {
@@ -257,29 +297,15 @@ function wireGallery(supabase) {
 
   if (!supabase) return;
 
-  // Chargement initial
-  supabase
-    .from("photos")
-    .select("url, created_at")
-    .order("created_at", { ascending: false })
-    .limit(300)
+  supabase.from("photos").select("url, created_at").order("created_at", { ascending: false }).limit(300)
     .then(({ data, error }) => {
       if (error) return console.error(error);
-      if (!data || !data.length) {
-        empty.style.display = "block";
-        return;
-      }
+      if (!data || !data.length) { empty.style.display = "block"; return; }
       data.forEach((row) => addPhotoToGrid(row.url, false));
     });
 
-  // Nouvelles photos en direct (Supabase Realtime)
-  supabase
-    .channel("photos-live")
-    .on(
-      "postgres_changes",
-      { event: "INSERT", schema: "public", table: "photos" },
-      (payload) => addPhotoToGrid(payload.new.url, true)
-    )
+  supabase.channel("photos-live")
+    .on("postgres_changes", { event: "INSERT", schema: "public", table: "photos" }, (payload) => addPhotoToGrid(payload.new.url, true))
     .subscribe();
 }
 
@@ -287,14 +313,10 @@ function wireGallery(supabase) {
    INIT
    ============================================================ */
 (async function init() {
-  document.getElementById("heroDate").textContent =
-    new Intl.DateTimeFormat("fr-FR", { weekday: "long", day: "numeric", month: "long", year: "numeric" })
-      .format(new Date(CONFIG.dateISO))
-      .replace(/^./, (c) => c.toUpperCase()) + " — Domaine des Tilleuls, Langon";
-
+  renderHero();
   renderProgramme();
-  renderHotels();
-  renderMapsLink();
+  renderInfos();
+  renderRsvpSubtitle();
   startCountdown();
   renderQRCode();
 
