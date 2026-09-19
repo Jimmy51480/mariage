@@ -16,8 +16,8 @@ const CONFIG = {
   programme: [
     { heure: "Horaire à venir", titre: "Mairie", lieu: "Sacy (Marne)", adresse: "Mairie de Sacy, Marne", icon: "scroll" },
     { heure: "Horaire à venir", titre: "Cérémonie religieuse", lieu: "Église de Sacy (Marne)", adresse: "Église de Sacy, Marne", icon: "chapel" },
-    { heure: "Horaire à venir", titre: "Vin d'honneur", lieu: "Lieu à confirmer", adresse: "", icon: "glass" },
-    { heure: "Horaire à venir", titre: "Repas", lieu: "Domaine Miltat, Pierry", adresse: "Domaine Miltat, Pierry, Marne", icon: "fork" },
+    { heure: "Horaire à venir", titre: "Vin d'honneur", lieu: "Lieu à confirmer", adresse: "", icon: "village" },
+    { heure: "Horaire à venir", titre: "Repas", lieu: "Domaine Miltat, Pierry", adresse: "Domaine Miltat, Pierry, Marne", icon: "chateau" },
   ],
 
   adressePrincipale: { nom: "Domaine Miltat", adresse: "Pierry, Marne" },
@@ -38,6 +38,8 @@ const ICONS = {
   chapel: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v3M10.3 5.7h3.4"/><path d="M5 21V11l7-5 7 5v10"/><path d="M9.5 21v-6h5v6"/></svg>`,
   glass: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 4h10c0 4.4-3.2 7.5-5 7.5S7 8.4 7 4Z"/><path d="M12 11.5V19M9 21h6"/></svg>`,
   fork: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3v6a1.6 1.6 0 0 0 1.6 1.6H9V21M6 3v4.5A1.5 1.5 0 0 0 7.5 9M10 3v4.5A1.5 1.5 0 0 1 8.5 9"/><path d="M16.5 3c-1.4 0-2.4 1.7-2.4 4.6 0 1.9.8 3 1.7 3.5V21"/></svg>`,
+  village: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M2 20h20"/><path d="M4 20v-5h3v5"/><path d="M17 20v-6h3v6"/><path d="M9 20V10l3-3 3 3v10"/><path d="M12 4.2v2.6"/></svg>`,
+  chateau: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20h18"/><path d="M5 20V9l2-2 2 2v11"/><path d="M9 20V6h6v14"/><path d="M15 20V9l2-2 2 2v11"/></svg>`,
   default: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="12" r="4"/></svg>`,
 };
 
@@ -310,9 +312,35 @@ function wireGallery(supabase) {
 }
 
 /* ============================================================
+   INTRO — portail qui s'ouvre à l'arrivée sur le site
+   Ne se rejoue pas si l'invité revient plus tard (même onglet).
+   ============================================================ */
+function playIntro() {
+  const intro = document.getElementById("intro");
+  if (!intro) return;
+  const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  let alreadySeen = false;
+  try { alreadySeen = sessionStorage.getItem("introSeen") === "1"; } catch (e) { /* stockage indisponible, tant pis */ }
+
+  if (alreadySeen || reduced) {
+    intro.classList.add("hidden");
+    return;
+  }
+
+  document.body.style.overflow = "hidden";
+  setTimeout(() => {
+    intro.classList.add("open");
+    document.body.style.overflow = "";
+    try { sessionStorage.setItem("introSeen", "1"); } catch (e) { /* tant pis */ }
+    setTimeout(() => intro.classList.add("hidden"), 1300);
+  }, 450);
+}
+
+/* ============================================================
    INIT
    ============================================================ */
 (async function init() {
+  playIntro();
   renderHero();
   renderProgramme();
   renderInfos();
