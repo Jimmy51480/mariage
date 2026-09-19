@@ -332,8 +332,8 @@ function playIntro() {
     intro.classList.add("open");
     document.body.style.overflow = "";
     try { sessionStorage.setItem("introSeen", "1"); } catch (e) { /* tant pis */ }
-    setTimeout(() => intro.classList.add("hidden"), 1300);
-  }, 450);
+    setTimeout(() => intro.classList.add("hidden"), 2400);
+  }, 900);
 }
 
 /* ============================================================
