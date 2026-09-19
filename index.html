@@ -39,6 +39,7 @@
     font-size:16px;
     line-height:1.55;
     -webkit-font-smoothing:antialiased;
+    position:relative;
   }
   h1,h2,h3{ font-family:var(--font-display); font-weight:500; margin:0; color:var(--ink); }
   p{margin:0;}
@@ -51,12 +52,28 @@
     *{animation-duration:0.001ms !important; transition-duration:0.001ms !important;}
   }
 
-  .wrap{max-width:var(--max-w); margin:0 auto; padding:0 24px;}
+  .wrap{max-width:var(--max-w); margin:0 auto; padding:0 24px; position:relative;}
   .center{text-align:center;}
 
-  .flourish{ color:var(--gold); display:block; margin:0 auto; }
-  .flourish.lg{ width:180px; height:26px; }
-  .flourish.sm{ width:120px; height:18px; }
+  /* ============ DÉCOR VIGNE ============ */
+  .page-border{
+    position:fixed; top:0; bottom:0; width:34px; z-index:1; pointer-events:none; opacity:0.55;
+  }
+  .page-border-left{ left:0; }
+  .page-border-right{ right:0; transform:scaleX(-1); }
+  @media (max-width:1000px){ .page-border{display:none;} }
+
+  .flourish{ display:block; margin:0 auto; color:var(--gold); }
+  .flourish.vine{ width:190px; height:28px; }
+  .flourish.vine-lg{ width:220px; height:32px; }
+  .flourish .grape{ fill:var(--wine); }
+
+  .vine-corner{ position:absolute; width:76px; height:76px; color:var(--gold-soft); opacity:0.6; z-index:0; }
+  .vine-corner.tl{ top:14px; left:14px; }
+  .vine-corner.tr{ top:14px; right:14px; transform:scaleX(-1); }
+  .vine-corner .grape{ fill:var(--wine); opacity:0.85; }
+  .rsvp-card{ position:relative; overflow:hidden; }
+  .rsvp-card .vine-corner{ width:56px; height:56px; opacity:0.4; }
 
   /* ============ NAV ============ */
   .nav{
@@ -91,34 +108,22 @@
     border-bottom:1px solid var(--line);
     overflow:hidden;
   }
-  .hero.has-photo{
-    background-size:cover; background-position:center;
-    color:#FBF5EC;
-  }
+  .hero.has-photo{ background-size:cover; background-position:center; color:#FBF5EC; }
   .hero.has-photo::before{
     content:""; position:absolute; inset:0;
     background:linear-gradient(180deg, rgba(58,34,51,0.55), rgba(58,34,51,0.72));
   }
   .hero-inner{ position:relative; z-index:1; max-width:640px; margin:0 auto; }
-  .hero-eyebrow{
-    font-family:var(--font-script); font-size:28px; color:var(--wine); margin-bottom:4px;
-  }
+  .hero-eyebrow{ font-family:var(--font-script); font-size:28px; color:var(--wine); margin-bottom:4px; }
   .hero.has-photo .hero-eyebrow{ color:var(--gold-soft); }
-  .hero-names{
-    font-size:clamp(44px, 9vw, 78px);
-    line-height:1.02;
-    letter-spacing:-0.005em;
-  }
+  .hero-names{ font-size:clamp(44px, 9vw, 78px); line-height:1.02; letter-spacing:-0.005em; }
   .hero-names .amp{ font-family:var(--font-script); font-weight:400; padding:0 6px; color:var(--wine); }
   .hero.has-photo .hero-names .amp{ color:var(--gold-soft); }
   .hero-divider{ margin:22px auto; }
   .hero-sub{ font-size:16px; color:var(--ink-soft); }
   .hero.has-photo .hero-sub{ color:#EDE1D6; }
   .countdown{ margin-top:32px; display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
-  .countdown-item{
-    min-width:70px; padding:12px 10px; border:1px solid var(--gold-soft);
-    border-radius:3px; background:rgba(255,253,249,0.6);
-  }
+  .countdown-item{ min-width:70px; padding:12px 10px; border:1px solid var(--gold-soft); border-radius:3px; background:rgba(255,253,249,0.6); }
   .hero.has-photo .countdown-item{ border-color:rgba(217,190,134,0.6); background:rgba(255,255,255,0.08); }
   .countdown-num{ font-family:var(--font-display); font-size:30px; font-variant-numeric: tabular-nums; line-height:1; }
   .countdown-label{ font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:var(--ink-soft); margin-top:6px; }
@@ -147,9 +152,7 @@
   /* ============ INFOS PRATIQUES ============ */
   .infos-grid{ display:grid; grid-template-columns:1fr 1fr; gap:20px; max-width:640px; margin:0 auto; }
   @media (max-width:600px){ .infos-grid{grid-template-columns:1fr;} }
-  .info-card{
-    background:var(--card); border:1px solid var(--line); border-radius:4px; padding:24px; text-align:left;
-  }
+  .info-card{ background:var(--card); border:1px solid var(--line); border-radius:4px; padding:24px; text-align:left; }
   .info-card h3{ font-size:12px; font-weight:600; font-family:var(--font-body); letter-spacing:.08em; text-transform:uppercase; color:var(--gold); margin-bottom:10px; }
   .info-card .big{ font-family:var(--font-display); font-size:20px; margin-bottom:4px; }
   .info-card .small{ font-size:14px; color:var(--ink-soft); }
@@ -162,10 +165,7 @@
   .hotel-empty{ font-size:13px; color:var(--ink-soft); font-style:italic; }
 
   /* ============ RSVP ============ */
-  .rsvp-card{
-    max-width:500px; margin:0 auto; background:var(--card); border:1px solid var(--line);
-    border-radius:4px; padding:40px 32px; text-align:left;
-  }
+  .rsvp-card{ max-width:500px; margin:0 auto; background:var(--card); border:1px solid var(--line); border-radius:4px; padding:40px 32px; text-align:left; }
   .field{margin-bottom:20px;}
   .field label{display:block; font-size:13px; color:var(--ink-soft); margin-bottom:6px;}
   .field input[type=text], .field input[type=number], .field select, .field textarea{
@@ -203,9 +203,7 @@
     border:1px solid var(--wine); border-radius:20px; font-size:14px; font-weight:500;
   }
   .btn-secondary:hover{background:var(--wine); color:#FBF5EC;}
-  .qr-card{
-    background:var(--card); border:1px solid var(--line); padding:16px; text-align:center; width:170px;
-  }
+  .qr-card{ background:var(--card); border:1px solid var(--line); padding:16px; text-align:center; width:170px; }
   .qr-card #qrcode{margin:0 auto;}
   .qr-caption{font-size:12px; color:var(--ink-soft); margin-top:10px;}
   .upload-status{font-size:13px; color:var(--ink-soft); min-height:18px;}
@@ -223,17 +221,53 @@
   }
   .lightbox.open{display:flex;}
   .lightbox img{max-height:88vh; max-width:100%; border-radius:3px;}
-  .lightbox-close{
-    position:absolute; top:20px; right:24px; color:#FBF5EC; background:none; border:none;
-    font-size:28px; line-height:1;
-  }
+  .lightbox-close{ position:absolute; top:20px; right:24px; color:#FBF5EC; background:none; border:none; font-size:28px; line-height:1; }
 
-  footer{padding:44px 0 60px; text-align:center;}
+  footer{padding:44px 0 60px; text-align:center; position:relative;}
   footer .flourish{margin-bottom:16px;}
   footer p{font-size:13px; color:var(--ink-soft);}
 </style>
 </head>
 <body>
+
+<div class="page-border page-border-left" aria-hidden="true">
+  <svg width="100%" height="100%" preserveAspectRatio="none">
+    <defs>
+      <pattern id="vineTileL" width="34" height="150" patternUnits="userSpaceOnUse">
+        <path d="M18,0 C4,18 4,36 18,54 C32,72 32,84 18,102 C4,120 4,136 18,150"
+              fill="none" stroke="var(--gold-soft)" stroke-width="1" stroke-linecap="round"/>
+        <ellipse cx="9" cy="26" rx="6" ry="2.4" transform="rotate(-35 9 26)" fill="none" stroke="var(--gold-soft)" stroke-width="1"/>
+        <ellipse cx="28" cy="63" rx="6" ry="2.4" transform="rotate(30 28 63)" fill="none" stroke="var(--gold-soft)" stroke-width="1"/>
+        <ellipse cx="8" cy="98" rx="6" ry="2.4" transform="rotate(-30 8 98)" fill="none" stroke="var(--gold-soft)" stroke-width="1"/>
+        <ellipse cx="27" cy="132" rx="6" ry="2.4" transform="rotate(30 27 132)" fill="none" stroke="var(--gold-soft)" stroke-width="1"/>
+        <g fill="var(--wine)" stroke="none" opacity="0.85">
+          <circle cx="21" cy="42" r="1.5"/><circle cx="24" cy="45" r="1.5"/><circle cx="21" cy="48" r="1.5"/>
+          <circle cx="12" cy="112" r="1.5"/><circle cx="15" cy="115" r="1.5"/><circle cx="12" cy="118" r="1.5"/>
+        </g>
+      </pattern>
+    </defs>
+    <rect width="100%" height="100%" fill="url(#vineTileL)"/>
+  </svg>
+</div>
+<div class="page-border page-border-right" aria-hidden="true">
+  <svg width="100%" height="100%" preserveAspectRatio="none">
+    <defs>
+      <pattern id="vineTileR" width="34" height="150" patternUnits="userSpaceOnUse">
+        <path d="M18,0 C4,18 4,36 18,54 C32,72 32,84 18,102 C4,120 4,136 18,150"
+              fill="none" stroke="var(--gold-soft)" stroke-width="1" stroke-linecap="round"/>
+        <ellipse cx="9" cy="26" rx="6" ry="2.4" transform="rotate(-35 9 26)" fill="none" stroke="var(--gold-soft)" stroke-width="1"/>
+        <ellipse cx="28" cy="63" rx="6" ry="2.4" transform="rotate(30 28 63)" fill="none" stroke="var(--gold-soft)" stroke-width="1"/>
+        <ellipse cx="8" cy="98" rx="6" ry="2.4" transform="rotate(-30 8 98)" fill="none" stroke="var(--gold-soft)" stroke-width="1"/>
+        <ellipse cx="27" cy="132" rx="6" ry="2.4" transform="rotate(30 27 132)" fill="none" stroke="var(--gold-soft)" stroke-width="1"/>
+        <g fill="var(--wine)" stroke="none" opacity="0.85">
+          <circle cx="21" cy="42" r="1.5"/><circle cx="24" cy="45" r="1.5"/><circle cx="21" cy="48" r="1.5"/>
+          <circle cx="12" cy="112" r="1.5"/><circle cx="15" cy="115" r="1.5"/><circle cx="12" cy="118" r="1.5"/>
+        </g>
+      </pattern>
+    </defs>
+    <rect width="100%" height="100%" fill="url(#vineTileR)"/>
+  </svg>
+</div>
 
 <nav class="nav">
   <div class="nav-inner">
@@ -248,11 +282,30 @@
 </nav>
 
 <header class="hero" id="hero">
+  <svg class="vine-corner tl" viewBox="0 0 90 90" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" aria-hidden="true">
+    <path d="M6,6 C6,28 6,46 24,56 C40,64 50,52 46,40"/>
+    <ellipse class="leaf" cx="16" cy="20" rx="6" ry="2.6" transform="rotate(40 16 20)"/>
+    <ellipse class="leaf" cx="8" cy="38" rx="6" ry="2.6" transform="rotate(-15 8 38)"/>
+    <ellipse class="leaf" cx="32" cy="53" rx="6" ry="2.6" transform="rotate(60 32 53)"/>
+    <g class="grape" stroke="none"><circle cx="42" cy="42" r="2"/><circle cx="46" cy="45" r="2"/><circle cx="42" cy="48" r="2"/><circle cx="38" cy="45" r="2"/></g>
+  </svg>
+  <svg class="vine-corner tr" viewBox="0 0 90 90" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" aria-hidden="true">
+    <path d="M6,6 C6,28 6,46 24,56 C40,64 50,52 46,40"/>
+    <ellipse class="leaf" cx="16" cy="20" rx="6" ry="2.6" transform="rotate(40 16 20)"/>
+    <ellipse class="leaf" cx="8" cy="38" rx="6" ry="2.6" transform="rotate(-15 8 38)"/>
+    <ellipse class="leaf" cx="32" cy="53" rx="6" ry="2.6" transform="rotate(60 32 53)"/>
+    <g class="grape" stroke="none"><circle cx="42" cy="42" r="2"/><circle cx="46" cy="45" r="2"/><circle cx="42" cy="48" r="2"/><circle cx="38" cy="45" r="2"/></g>
+  </svg>
   <div class="hero-inner">
     <div class="hero-eyebrow">Le mariage de</div>
     <h1 class="hero-names" id="heroNames"></h1>
-    <svg class="flourish lg hero-divider" viewBox="0 0 180 24" fill="none" stroke="currentColor" stroke-width="1">
-      <path d="M2 12 H70"/><circle cx="90" cy="12" r="3.2" fill="currentColor" stroke="none"/><path d="M110 12 H178"/>
+    <svg class="flourish vine-lg hero-divider" viewBox="0 0 220 32" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" aria-hidden="true">
+      <path d="M4,16 C40,2 50,30 86,16 C110,4 110,28 134,16 C158,4 170,28 194,16 C204,10 210,18 216,14"/>
+      <ellipse cx="30" cy="8" rx="7" ry="3" transform="rotate(-25 30 8)"/>
+      <ellipse cx="60" cy="25" rx="7" ry="3" transform="rotate(25 60 25)"/>
+      <ellipse cx="150" cy="25" rx="7" ry="3" transform="rotate(20 150 25)"/>
+      <ellipse cx="182" cy="7" rx="7" ry="3" transform="rotate(-25 182 7)"/>
+      <g class="grape" stroke="none"><circle cx="110" cy="19" r="2"/><circle cx="114" cy="22" r="2"/><circle cx="110" cy="25" r="2"/><circle cx="106" cy="22" r="2"/></g>
     </svg>
     <p class="hero-sub" id="heroDate"></p>
     <div class="countdown" id="countdown" aria-live="polite">
@@ -267,7 +320,14 @@
 <section class="block" id="programme">
   <div class="wrap center">
     <div class="block-head">
-      <svg class="flourish sm" viewBox="0 0 120 18" fill="none" stroke="currentColor" stroke-width="1"><path d="M2 9 H45"/><circle cx="60" cy="9" r="2.6" fill="currentColor" stroke="none"/><path d="M75 9 H118"/></svg>
+      <svg class="flourish vine" viewBox="0 0 190 28" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" aria-hidden="true">
+        <path d="M4,14 C34,2 44,26 74,14 C96,4 96,24 118,14 C140,4 150,24 172,14 C178,10 182,16 186,12"/>
+        <ellipse cx="26" cy="7" rx="6" ry="2.6" transform="rotate(-25 26 7)"/>
+        <ellipse cx="52" cy="22" rx="6" ry="2.6" transform="rotate(25 52 22)"/>
+        <ellipse cx="130" cy="22" rx="6" ry="2.6" transform="rotate(20 130 22)"/>
+        <ellipse cx="158" cy="7" rx="6" ry="2.6" transform="rotate(-25 158 7)"/>
+        <g class="grape" stroke="none"><circle cx="96" cy="17" r="1.8"/><circle cx="99" cy="20" r="1.8"/><circle cx="96" cy="23" r="1.8"/></g>
+      </svg>
       <h2 class="block-title">Le programme</h2>
       <p class="block-subtitle">Le déroulé de la journée, étape par étape.</p>
     </div>
@@ -278,7 +338,14 @@
 <section class="block" id="infos">
   <div class="wrap center">
     <div class="block-head">
-      <svg class="flourish sm" viewBox="0 0 120 18" fill="none" stroke="currentColor" stroke-width="1"><path d="M2 9 H45"/><circle cx="60" cy="9" r="2.6" fill="currentColor" stroke="none"/><path d="M75 9 H118"/></svg>
+      <svg class="flourish vine" viewBox="0 0 190 28" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" aria-hidden="true">
+        <path d="M4,14 C34,2 44,26 74,14 C96,4 96,24 118,14 C140,4 150,24 172,14 C178,10 182,16 186,12"/>
+        <ellipse cx="26" cy="7" rx="6" ry="2.6" transform="rotate(-25 26 7)"/>
+        <ellipse cx="52" cy="22" rx="6" ry="2.6" transform="rotate(25 52 22)"/>
+        <ellipse cx="130" cy="22" rx="6" ry="2.6" transform="rotate(20 130 22)"/>
+        <ellipse cx="158" cy="7" rx="6" ry="2.6" transform="rotate(-25 158 7)"/>
+        <g class="grape" stroke="none"><circle cx="96" cy="17" r="1.8"/><circle cx="99" cy="20" r="1.8"/><circle cx="96" cy="23" r="1.8"/></g>
+      </svg>
       <h2 class="block-title">Infos pratiques</h2>
     </div>
     <div class="infos-grid" id="infosGrid"></div>
@@ -288,11 +355,23 @@
 <section class="block" id="rsvp">
   <div class="wrap center">
     <div class="block-head">
-      <svg class="flourish sm" viewBox="0 0 120 18" fill="none" stroke="currentColor" stroke-width="1"><path d="M2 9 H45"/><circle cx="60" cy="9" r="2.6" fill="currentColor" stroke="none"/><path d="M75 9 H118"/></svg>
+      <svg class="flourish vine" viewBox="0 0 190 28" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" aria-hidden="true">
+        <path d="M4,14 C34,2 44,26 74,14 C96,4 96,24 118,14 C140,4 150,24 172,14 C178,10 182,16 186,12"/>
+        <ellipse cx="26" cy="7" rx="6" ry="2.6" transform="rotate(-25 26 7)"/>
+        <ellipse cx="52" cy="22" rx="6" ry="2.6" transform="rotate(25 52 22)"/>
+        <ellipse cx="130" cy="22" rx="6" ry="2.6" transform="rotate(20 130 22)"/>
+        <ellipse cx="158" cy="7" rx="6" ry="2.6" transform="rotate(-25 158 7)"/>
+        <g class="grape" stroke="none"><circle cx="96" cy="17" r="1.8"/><circle cx="99" cy="20" r="1.8"/><circle cx="96" cy="23" r="1.8"/></g>
+      </svg>
       <h2 class="block-title">RSVP</h2>
       <p class="block-subtitle" id="rsvpSubtitle"></p>
     </div>
     <form class="rsvp-card" id="rsvpForm">
+      <svg class="vine-corner tl" viewBox="0 0 90 90" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" aria-hidden="true">
+        <path d="M6,6 C6,24 6,38 20,46 C32,52 40,42 37,32"/>
+        <ellipse class="leaf" cx="14" cy="17" rx="5" ry="2.2" transform="rotate(40 14 17)"/>
+        <ellipse class="leaf" cx="7" cy="31" rx="5" ry="2.2" transform="rotate(-15 7 31)"/>
+      </svg>
       <div class="field">
         <label for="rsvpName">Prénom et nom</label>
         <input type="text" id="rsvpName" required>
@@ -327,7 +406,14 @@
 <section class="block" id="galerie" style="border-bottom:none;">
   <div class="wrap center">
     <div class="block-head">
-      <svg class="flourish sm" viewBox="0 0 120 18" fill="none" stroke="currentColor" stroke-width="1"><path d="M2 9 H45"/><circle cx="60" cy="9" r="2.6" fill="currentColor" stroke="none"/><path d="M75 9 H118"/></svg>
+      <svg class="flourish vine" viewBox="0 0 190 28" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" aria-hidden="true">
+        <path d="M4,14 C34,2 44,26 74,14 C96,4 96,24 118,14 C140,4 150,24 172,14 C178,10 182,16 186,12"/>
+        <ellipse cx="26" cy="7" rx="6" ry="2.6" transform="rotate(-25 26 7)"/>
+        <ellipse cx="52" cy="22" rx="6" ry="2.6" transform="rotate(25 52 22)"/>
+        <ellipse cx="130" cy="22" rx="6" ry="2.6" transform="rotate(20 130 22)"/>
+        <ellipse cx="158" cy="7" rx="6" ry="2.6" transform="rotate(-25 158 7)"/>
+        <g class="grape" stroke="none"><circle cx="96" cy="17" r="1.8"/><circle cx="99" cy="20" r="1.8"/><circle cx="96" cy="23" r="1.8"/></g>
+      </svg>
       <h2 class="block-title">Vos photos</h2>
       <p class="block-subtitle gal-intro">Vous avez pris des photos pendant la journée ? Ajoutez-les ici, elles apparaissent en direct — visible par tout le monde, mariés compris.</p>
     </div>
@@ -346,7 +432,14 @@
 </section>
 
 <footer>
-  <svg class="flourish sm" viewBox="0 0 120 18" fill="none" stroke="currentColor" stroke-width="1"><path d="M2 9 H45"/><circle cx="60" cy="9" r="2.6" fill="currentColor" stroke="none"/><path d="M75 9 H118"/></svg>
+  <svg class="flourish vine" viewBox="0 0 190 28" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" aria-hidden="true">
+    <path d="M4,14 C34,2 44,26 74,14 C96,4 96,24 118,14 C140,4 150,24 172,14 C178,10 182,16 186,12"/>
+    <ellipse cx="26" cy="7" rx="6" ry="2.6" transform="rotate(-25 26 7)"/>
+    <ellipse cx="52" cy="22" rx="6" ry="2.6" transform="rotate(25 52 22)"/>
+    <ellipse cx="130" cy="22" rx="6" ry="2.6" transform="rotate(20 130 22)"/>
+    <ellipse cx="158" cy="7" rx="6" ry="2.6" transform="rotate(-25 158 7)"/>
+    <g class="grape" stroke="none"><circle cx="96" cy="17" r="1.8"/><circle cx="99" cy="20" r="1.8"/><circle cx="96" cy="23" r="1.8"/></g>
+  </svg>
   <p id="footerNames"></p>
 </footer>
 
