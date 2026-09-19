@@ -232,88 +232,33 @@
   footer .flourish{margin-bottom:16px;}
   footer p{font-size:13px; color:var(--ink-soft);}
 
-  /* ============ INTRO PORTAIL (ferronnerie au trait + monogramme) ============ */
-  #intro{ position:fixed; inset:0; z-index:200; display:flex; background:var(--paper); }
+  /* ============ INTRO — rideau de couleur ============ */
+  #intro{ position:fixed; inset:0; z-index:200; display:flex; }
   #intro.hidden{ display:none; }
   .intro-panel{
-    width:50%; height:100%; background:var(--paper); position:relative; overflow:hidden;
-    transition:transform 1.15s cubic-bezier(.65,0,.35,1);
+    width:50%; height:100%; background:var(--wine); position:relative; overflow:hidden;
+    transition:transform 2.3s cubic-bezier(.65,0,.35,1);
   }
-  .intro-vine{ position:absolute; inset:0; width:100%; height:100%; }
   #intro.open .intro-panel.left{ transform:translateX(-100%); }
   #intro.open .intro-panel.right{ transform:translateX(100%); }
+  .intro-names{
+    position:fixed; top:50%; left:50%; transform:translate(-50%,-50%);
+    z-index:201; text-align:center; color:#FBF5EC; transition:opacity .5s ease;
+  }
+  .intro-names .line1{ font-family:var(--font-display); font-style:italic; font-weight:400; font-size:clamp(30px,6vw,46px); white-space:nowrap; }
+  .intro-names .amp{ font-family:var(--font-script); font-style:normal; color:var(--gold-soft); padding:0 12px; }
+  .intro-divider{ width:64px; height:1px; background:var(--gold-soft); margin:18px auto 0; }
+  #intro.open .intro-names{ opacity:0; }
 </style>
 </head>
 <body>
 
 <div id="intro" aria-hidden="true">
-  <div class="intro-panel left">
-    <svg class="intro-vine" viewBox="0 0 220 600" preserveAspectRatio="none">
-      <!-- montants en ferronnerie -->
-      <path d="M40,600 L40,180 Q40,40 200,20" fill="none" stroke="var(--iron)" stroke-width="3" stroke-linecap="round"/>
-      <path d="M76,600 L76,205 Q76,75 196,56" fill="none" stroke="var(--iron)" stroke-width="1.4" stroke-linecap="round" opacity="0.7"/>
-      <!-- volutes -->
-      <path d="M200,20 C216,14 220,30 206,36 C198,39 194,30 202,27" fill="none" stroke="var(--iron)" stroke-width="1.6" stroke-linecap="round"/>
-      <path d="M40,180 C24,178 18,192 30,200 C38,205 46,198 40,190" fill="none" stroke="var(--iron)" stroke-width="1.4" stroke-linecap="round" opacity="0.8"/>
-      <!-- barres horizontales -->
-      <path d="M40,250 L96,246" stroke="var(--iron)" stroke-width="1.4" opacity="0.7"/>
-      <path d="M40,430 L100,428" stroke="var(--iron)" stroke-width="1.4" opacity="0.7"/>
-      <!-- médaillon monogramme -->
-      <circle cx="112" cy="232" r="54" fill="none" stroke="var(--gold)" stroke-width="1.6"/>
-      <circle cx="112" cy="232" r="47" fill="none" stroke="var(--gold)" stroke-width="0.8" opacity="0.6"/>
-      <text x="112" y="256" font-family="Fraunces, serif" font-style="italic" font-weight="600" font-size="72" fill="var(--gold)" text-anchor="middle">A</text>
-      <!-- vigne : feuilles -->
-      <g fill="var(--leaf)">
-        <ellipse cx="55" cy="112" rx="9" ry="3.6" transform="rotate(-30 55 112)"/>
-        <ellipse cx="90" cy="155" rx="9" ry="3.6" transform="rotate(35 90 155)"/>
-        <ellipse cx="50" cy="300" rx="9" ry="3.6" transform="rotate(-25 50 300)"/>
-        <ellipse cx="94" cy="345" rx="9" ry="3.6" transform="rotate(30 94 345)"/>
-        <ellipse cx="48" cy="465" rx="9" ry="3.6" transform="rotate(-28 48 465)"/>
-        <ellipse cx="92" cy="505" rx="9" ry="3.6" transform="rotate(25 92 505)"/>
-        <ellipse cx="168" cy="88" rx="9" ry="3.6" transform="rotate(45 168 88)"/>
-        <ellipse cx="198" cy="140" rx="9" ry="3.6" transform="rotate(-20 198 140)"/>
-      </g>
-      <!-- vigne : grappes -->
-      <g fill="var(--grape)">
-        <circle cx="178" cy="66" r="3.4"/><circle cx="184" cy="71" r="3.4"/><circle cx="178" cy="76" r="3.4"/><circle cx="172" cy="71" r="3.4"/><circle cx="178" cy="82" r="3.4"/>
-        <circle cx="96" cy="258" r="3.4"/><circle cx="102" cy="263" r="3.4"/><circle cx="96" cy="268" r="3.4"/><circle cx="90" cy="263" r="3.4"/><circle cx="96" cy="274" r="3.4"/>
-        <circle cx="58" cy="398" r="3.4"/><circle cx="64" cy="403" r="3.4"/><circle cx="58" cy="408" r="3.4"/><circle cx="52" cy="403" r="3.4"/><circle cx="58" cy="414" r="3.4"/>
-      </g>
-    </svg>
-  </div>
-  <div class="intro-panel right">
-    <svg class="intro-vine" viewBox="0 0 220 600" preserveAspectRatio="none">
-      <!-- montants en ferronnerie (miroir) -->
-      <path d="M180,600 L180,180 Q180,40 20,20" fill="none" stroke="var(--iron)" stroke-width="3" stroke-linecap="round"/>
-      <path d="M144,600 L144,205 Q144,75 24,56" fill="none" stroke="var(--iron)" stroke-width="1.4" stroke-linecap="round" opacity="0.7"/>
-      <!-- volutes -->
-      <path d="M20,20 C4,14 0,30 14,36 C22,39 26,30 18,27" fill="none" stroke="var(--iron)" stroke-width="1.6" stroke-linecap="round"/>
-      <path d="M180,180 C196,178 202,192 190,200 C182,205 174,198 180,190" fill="none" stroke="var(--iron)" stroke-width="1.4" stroke-linecap="round" opacity="0.8"/>
-      <!-- barres horizontales -->
-      <path d="M180,250 L124,246" stroke="var(--iron)" stroke-width="1.4" opacity="0.7"/>
-      <path d="M180,430 L120,428" stroke="var(--iron)" stroke-width="1.4" opacity="0.7"/>
-      <!-- médaillon monogramme -->
-      <circle cx="108" cy="232" r="54" fill="none" stroke="var(--gold)" stroke-width="1.6"/>
-      <circle cx="108" cy="232" r="47" fill="none" stroke="var(--gold)" stroke-width="0.8" opacity="0.6"/>
-      <text x="108" y="256" font-family="Fraunces, serif" font-style="italic" font-weight="600" font-size="72" fill="var(--gold)" text-anchor="middle">J</text>
-      <!-- vigne : feuilles -->
-      <g fill="var(--leaf)">
-        <ellipse cx="165" cy="112" rx="9" ry="3.6" transform="rotate(30 165 112)"/>
-        <ellipse cx="130" cy="155" rx="9" ry="3.6" transform="rotate(-35 130 155)"/>
-        <ellipse cx="170" cy="300" rx="9" ry="3.6" transform="rotate(25 170 300)"/>
-        <ellipse cx="126" cy="345" rx="9" ry="3.6" transform="rotate(-30 126 345)"/>
-        <ellipse cx="172" cy="465" rx="9" ry="3.6" transform="rotate(28 172 465)"/>
-        <ellipse cx="128" cy="505" rx="9" ry="3.6" transform="rotate(-25 128 505)"/>
-        <ellipse cx="52" cy="88" rx="9" ry="3.6" transform="rotate(-45 52 88)"/>
-        <ellipse cx="22" cy="140" rx="9" ry="3.6" transform="rotate(20 22 140)"/>
-      </g>
-      <!-- vigne : grappes -->
-      <g fill="var(--grape)">
-        <circle cx="42" cy="66" r="3.4"/><circle cx="36" cy="71" r="3.4"/><circle cx="42" cy="76" r="3.4"/><circle cx="48" cy="71" r="3.4"/><circle cx="42" cy="82" r="3.4"/>
-        <circle cx="124" cy="258" r="3.4"/><circle cx="118" cy="263" r="3.4"/><circle cx="124" cy="268" r="3.4"/><circle cx="130" cy="263" r="3.4"/><circle cx="124" cy="274" r="3.4"/>
-        <circle cx="162" cy="398" r="3.4"/><circle cx="156" cy="403" r="3.4"/><circle cx="162" cy="408" r="3.4"/><circle cx="168" cy="403" r="3.4"/><circle cx="162" cy="414" r="3.4"/>
-      </g>
-    </svg>
+  <div class="intro-panel left"></div>
+  <div class="intro-panel right"></div>
+  <div class="intro-names">
+    <div class="line1">Ana&iuml;s<span class="amp">&amp;</span>Jimmy</div>
+    <div class="intro-divider"></div>
   </div>
 </div>
 
